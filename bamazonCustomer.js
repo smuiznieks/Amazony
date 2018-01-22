@@ -46,7 +46,7 @@ function prompt() {
             // validate: 
         }
     ]).then(function(answer) {
-        connection.query('SELECT stock_quantity, price FROM products WHERE ?', 
+        connection.query('SELECT stock_quantity, price, product_sales FROM products WHERE ?', 
         { 
             item_id: answer.product 
         }, 
@@ -55,12 +55,14 @@ function prompt() {
             if (res[0].stock_quantity < answer.quantity) {
                 // If the order amount is greater than the stock quantity, the app prevents the order from going through
                 console.log('\nSorry, we do not have enough of this item in stock.\n');
+                connection.end();
             } else {
                 // If the stock quantity is greater than or equal to the order amount, the order total is calculated and the database is updated to reflect the new inventory count
                 var total = (res[0].price * answer.quantity);
                 var final = total.toFixed(2);
                 console.log('\nThank you for shopping with us!\nYour total is $' + final + '\n');
-                var updatedInventory = parseInt(res[0].stock_quantity - answer.quantity);
+                var updatedInventory = (parseInt(res[0].stock_quantity) - parseInt(answer.quantity));
+                var updatedSales = (parseFloat(res[0].product_sales) + parseFloat(final));
                 connection.query('UPDATE products SET ? WHERE ?',
                 [
                     { 
@@ -72,9 +74,21 @@ function prompt() {
                 ], 
                 function(err, res) {
                     if (err) throw err;
+                })
+                connection.query('UPDATE products SET ? WHERE ?',
+                [
+                    {
+                        product_sales: updatedSales
+                    },
+                    {
+                        item_id: answer.product
+                    }
+                ],
+                function(err, res) {
+                    if (err) throw err;
                     connection.end();
                 })
-            }
+            };
         });
     });
 };
