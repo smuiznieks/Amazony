@@ -15,9 +15,7 @@ Make sure you have the correct node packages installed by running the following 
 Create the following MySQL database:
 
 `CREATE DATABASE bamazon;
-
 USE bamazon;
-
 CREATE TABLE products (
 item_id INT(100) NOT NULL AUTO_INCREMENT,
 product_name VARCHAR(50) NOT NULL,
@@ -33,7 +31,6 @@ Copy example values from **schema.sql** or update the table with your own invent
 To use the supervisor portal, also add the following table to your MySQL database:
 
 `USE bamazon;
-
 CREATE TABLE departments (
 department_id INT(100) NOT NULL AUTO_INCREMENT,
 department_name VARCHAR(100) NOT NULL,
