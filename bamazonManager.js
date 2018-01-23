@@ -1,5 +1,6 @@
 var mysql = require('mysql');
 var inquirer = require('inquirer');
+var cTable = require('console.table');
 
 // Create connection information for the sql database
 var connection = mysql.createConnection({
@@ -40,29 +41,19 @@ function manage() {
 };
 
 function view() {
-    connection.query('SELECT * FROM products', function(err, res) {
+    connection.query('SELECT item_id, product_name, price, stock_quantity FROM products', function(err, res) {
         if (err) throw err;
         console.log('\n');
-        for (var i = 0; i < res.length; i++) {
-            var unitCost = res[i].price;
-            var finalPrice = unitCost.toFixed(2);
-            console.log('Item Id: ' + res[i].item_id + '  /  Product: ' + res[i].product_name + '  /  Price: $' + finalPrice + '  /  Quantity: ' + res[i].stock_quantity);
-        }
-        console.log('\n');
+        console.table(res);
         connection.end();
     });
 };
 
 function lowInventory() {
-    connection.query('SELECT * FROM products WHERE stock_quantity < 5', function(err, res) {
+    connection.query('SELECT item_id, product_name, price, stock_quantity FROM products WHERE stock_quantity < 5', function(err, res) {
         if (err) throw err;
         console.log('\n');
-        for (var i = 0; i < res.length; i++) {
-            var unitCost = res[i].price;
-            var finalPrice = unitCost.toFixed(2);
-            console.log('Item Id: ' + res[i].item_id + '  /  Product: ' + res[i].product_name + '  /  Price: $' + finalPrice + '  /  Quantity: ' + res[i].stock_quantity);
-        }
-        console.log('\n');
+        console.table(res);
         connection.end();
     });
 };

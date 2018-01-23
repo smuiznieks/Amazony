@@ -1,5 +1,6 @@
 var mysql = require('mysql');
 var inquirer = require('inquirer');
+var cTable = require('console.table');
 
 // Create connection information for the sql database
 var connection = mysql.createConnection({
@@ -16,20 +17,16 @@ connection.connect(function(err) {
     console.log('\nWelcome to Amazon-y! You\'re connected as id ' + connection.threadId + '.\n');
     // Once connected, print current inventory
     printInventory();
-    // Then prompt user to enter information about their purchase
-    prompt();
 });
 
 function printInventory() {
     connection.query('SELECT item_id, product_name, price FROM products', function(err, res) {
         if (err) throw err;
-        for (var i = 0; i < res.length; i++) {
-            var unitCost = res[i].price;
-            var finalPrice = unitCost.toFixed(2);
-            console.log('Item Id: ' + res[i].item_id + '  /  Product: ' + res[i].product_name + '  /  Price: $' + finalPrice);
-        }
-        console.log('\n');
+        console.table(res);
+        // Then prompt user to enter information about their purchase
+        prompt();
     });
+    
 };
 
 function prompt() {
@@ -74,8 +71,9 @@ function prompt() {
                 ], 
                 function(err, res) {
                     if (err) throw err;
-                })
-                connection.query('UPDATE products SET ? WHERE ?',
+                    //connection.end();
+                });
+                connection.query('UPDATE products SET ? WHERE ?', 
                 [
                     {
                         product_sales: updatedSales
@@ -87,8 +85,8 @@ function prompt() {
                 function(err, res) {
                     if (err) throw err;
                     connection.end();
-                })
-            };
+                });
+            }
         });
     });
 };
