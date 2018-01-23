@@ -12,33 +12,9 @@ Make sure you have the correct node packages installed by running the following 
 
 `npm install`
 
-Create the following MySQL database:
+In MySQL, `CREATE DATABASE bamazon;` and `CREATE TABLE products` using the parameters provided in **schema.sql**. Include the example values or update the "products" table with your own inventory.
 
-`CREATE DATABASE bamazon;
-USE bamazon;
-CREATE TABLE products (
-item_id INT(100) NOT NULL AUTO_INCREMENT,
-product_name VARCHAR(50) NOT NULL,
-department_name VARCHAR(20) NOT NULL,
-price DECIMAL(10, 2) NOT NULL,
-stock_quantity INT(100) NOT NULL,
-product_sales DECIMAL(10, 2) DEFAULT 0,
-PRIMARY KEY (item_id)
-);`
-
-Copy example values from **schema.sql** or update the table with your own inventory.
-
-To use the supervisor portal, also add the following table to your MySQL database:
-
-`USE bamazon;
-CREATE TABLE departments (
-department_id INT(100) NOT NULL AUTO_INCREMENT,
-department_name VARCHAR(100) NOT NULL,
-over_head_costs INT(100) NOT NULL,
-PRIMARY KEY (department_id)
-);`
-
-Copy example values from **schemaSupervisor.sql** or update the table with your own departments. Overhead costs are dummie numbers used for the purpose of this activity.
+To use the supervisor portal, also `CREATE TABLE departments` using the parameters provided in **schemaSupervisor.sql**. Copy example values or update the table with your own departments. Overhead costs are dummie numbers used for the purpose of this activity.
 
 ## Using Amazon-y
 
