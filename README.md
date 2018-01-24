@@ -45,6 +45,8 @@ Copy example values from **schemaSupervisor.sql** or update the table with your 
 
 ### Customer View
 
+![Customer Portal screenshot](screenshots/CustomerPortal.png "")
+
 Launch the customer portal in your Terminal:
 
 `node bamazonCustomer.js`
@@ -52,6 +54,8 @@ Launch the customer portal in your Terminal:
 Users will receive a prompt to input the item ID and quantity of the product they wish to order. If the order amount is greater than the stock quantity, the app prevents the order from going through. Otherwise, the order total is calculated and the database is updated to reflect the new invetory count and total product sales.
 
 ### Manager View
+
+![Manager Portal screenshot](screenshots/ManagerPortal.png "")
 
 Launch the manager portal in your Terminal:
 
@@ -65,6 +69,8 @@ Users will receive a prompt to choose one of the following actions:
 * Add New Product, which allows users to add a product to the current inventory by pushing product name, department name, price and stock quantity to the database
 
 ### Supervisor View
+
+![Supervisor Portal screenshot](screenshots/SupervisorPortal.png "")
 
 Launch the supervisor portal in your Terminal:
 
@@ -80,6 +86,10 @@ Users will receive a prompt to choose one of the following actions:
 * [mysql npm](https://www.npmjs.com/package/mysql)
 * [inquirer npm](https://www.npmjs.com/package/inquirer)
 * [console.table npm](https://www.npmjs.com/package/console.table)
+
+### Happy Shopping!!
+
+![Warehouse gif](https://media.giphy.com/media/11p1o3yoAQ7Sne/giphy.gif)
 
 ### Author
 
